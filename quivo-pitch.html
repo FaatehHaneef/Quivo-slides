@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quivo — Turning Cost Pressure into Scalable Growth</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0D1B3E;
+    --navy2: #112248;
+    --blue: #1566C0;
+    --blue-light: #2A7FE8;
+    --orange: #FF5533;
+    --orange-dim: rgba(255,85,51,0.15);
+    --white: #FFFFFF;
+    --off-white: #EEF2FA;
+    --muted: rgba(255,255,255,0.5);
+    --border: rgba(255,255,255,0.08);
+    --card: rgba(255,255,255,0.04);
+  }
+
+  html, body {
+    width: 100%; height: 100%;
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    overflow: hidden;
+  }
+
+  /* SLIDE SYSTEM */
+  .deck { width: 100vw; height: 100vh; position: relative; }
+
+  .slide {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.55s cubic-bezier(.4,0,.2,1), transform 0.55s cubic-bezier(.4,0,.2,1);
+    transform: translateX(60px);
+    overflow: hidden;
+  }
+  .slide.active {
+    opacity: 1; pointer-events: all; transform: translateX(0);
+  }
+  .slide.exiting {
+    opacity: 0; transform: translateX(-60px);
+  }
+
+  /* NAV */
+  .nav {
+    position: fixed; bottom: 36px; left: 50%; transform: translateX(-50%);
+    display: flex; align-items: center; gap: 16px; z-index: 100;
+    background: rgba(13,27,62,0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 10px 20px;
+  }
+  .nav-btn {
+    background: none; border: none; cursor: pointer;
+    color: var(--white); font-family: 'DM Sans', sans-serif;
+    font-size: 13px; font-weight: 500; letter-spacing: 0.04em;
+    padding: 8px 20px; border-radius: 100px;
+    transition: background 0.2s, color 0.2s;
+    opacity: 0.6;
+  }
+  .nav-btn:hover { opacity: 1; background: rgba(255,255,255,0.08); }
+  .nav-btn.primary {
+    background: var(--orange); color: white; opacity: 1;
+    padding: 8px 24px;
+  }
+  .nav-btn.primary:hover { background: #ff6b4a; }
+  .nav-btn:disabled { opacity: 0.2; cursor: default; background: none; }
+
+  .slide-counter {
+    font-size: 12px; color: var(--muted); letter-spacing: 0.08em;
+    min-width: 40px; text-align: center;
+  }
+
+  .dots {
+    display: flex; gap: 6px; align-items: center;
+  }
+  .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    transition: background 0.3s, width 0.3s;
+    cursor: pointer;
+  }
+  .dot.active { background: var(--orange); width: 18px; border-radius: 3px; }
+
+  /* LOGO CORNER */
+  .logo-corner {
+    position: absolute; top: 28px; right: 36px; z-index: 50;
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: 20px; letter-spacing: -0.02em;
+    color: var(--blue-light);
+    opacity: 0.5;
+  }
+
+  /* SLIDE 1 — TITLE */
+  #s1 {
+    background: var(--navy);
+    justify-content: center;
+    padding: 60px 80px;
+  }
+  #s1::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(21,102,192,0.25) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  #s1::after {
+    content: '';
+    position: absolute;
+    bottom: -100px; left: -100px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(255,85,51,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .s1-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--orange-dim);
+    border: 1px solid rgba(255,85,51,0.3);
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-size: 12px; font-weight: 500; color: var(--orange);
+    letter-spacing: 0.08em; text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+  .s1-tag span { width: 6px; height: 6px; border-radius: 50%; background: var(--orange); }
+  .s1-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(48px, 6vw, 80px);
+    font-weight: 800; line-height: 1.0;
+    letter-spacing: -0.03em;
+    max-width: 700px;
+    margin-bottom: 28px;
+  }
+  .s1-title .accent { color: var(--orange); }
+  .s1-sub {
+    font-size: 18px; font-weight: 300; color: var(--muted);
+    max-width: 420px; line-height: 1.6;
+    margin-bottom: 48px;
+  }
+  .s1-presenter {
+    display: flex; align-items: center; gap: 14px;
+  }
+  .s1-avatar {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue), var(--blue-light));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 16px;
+  }
+  .s1-presenter-info { line-height: 1.4; }
+  .s1-presenter-name { font-weight: 500; font-size: 15px; }
+  .s1-presenter-role { font-size: 13px; color: var(--muted); }
+  .s1-quivo-big {
+    position: absolute; right: 80px; top: 50%; transform: translateY(-50%);
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: 180px; letter-spacing: -0.05em;
+    color: rgba(21,102,192,0.08);
+    user-select: none; pointer-events: none;
+  }
+
+  /* SLIDE LAYOUT BASE */
+  .slide-inner {
+    flex: 1; display: flex; flex-direction: column;
+    padding: 52px 80px 100px;
+    position: relative;
+  }
+  .slide-label {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--orange);
+    margin-bottom: 12px;
+  }
+  .slide-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(28px, 3.5vw, 44px);
+    font-weight: 800; line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 40px;
+  }
+
+  /* SLIDE 2 — THE PROBLEM */
+  #s2 { background: var(--navy); }
+  #s2 .slide-inner { flex-direction: row; gap: 60px; align-items: center; }
+  .s2-left { flex: 1; }
+  .s2-right {
+    flex: 0 0 420px;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .problem-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px 24px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .problem-card::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--orange);
+    border-radius: 3px 0 0 3px;
+  }
+  .problem-card p {
+    font-size: 15px; line-height: 1.6; color: rgba(255,255,255,0.8);
+  }
+  .problem-card.highlight {
+    background: rgba(255,85,51,0.08);
+    border-color: rgba(255,85,51,0.25);
+  }
+  .problem-card.highlight p { color: var(--white); font-weight: 500; }
+  .s2-heading {
+    font-family: 'Syne', sans-serif;
+    font-size: 52px; font-weight: 800;
+    line-height: 1.0; letter-spacing: -0.03em;
+    margin-bottom: 20px;
+  }
+  .s2-heading .dim { color: rgba(255,255,255,0.2); }
+  .s2-stat {
+    display: flex; align-items: baseline; gap: 8px; margin-top: 28px;
+  }
+  .s2-stat-num {
+    font-family: 'Syne', sans-serif; font-size: 56px; font-weight: 800;
+    color: var(--orange); line-height: 1;
+  }
+  .s2-stat-label { font-size: 14px; color: var(--muted); max-width: 140px; line-height: 1.4; }
+
+  /* SLIDE 3 — INSIGHT */
+  #s3 { background: var(--navy); }
+  #s3 .slide-inner { flex-direction: column; }
+  .s3-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 16px; flex: 1;
+  }
+  .s3-points {
+    display: flex; flex-direction: column; gap: 16px;
+    grid-column: 1;
+  }
+  .s3-point {
+    display: flex; gap: 14px; align-items: flex-start;
+  }
+  .s3-bullet {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--orange); margin-top: 6px; flex-shrink: 0;
+  }
+  .s3-point p { font-size: 16px; line-height: 1.6; color: rgba(255,255,255,0.8); }
+  .s3-companies {
+    grid-column: 2;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .company-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px 18px;
+    display: flex; align-items: center; gap: 16px;
+    transition: border-color 0.2s;
+  }
+  .company-card:hover { border-color: rgba(255,255,255,0.15); }
+  .company-logo {
+    width: 44px; height: 44px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 13px; flex-shrink: 0;
+    letter-spacing: -0.02em;
+  }
+  .company-info { flex: 1; }
+  .company-name { font-weight: 600; font-size: 13px; margin-bottom: 2px; }
+  .company-stat { font-size: 12px; color: var(--muted); line-height: 1.4; }
+  .bpo-bar {
+    grid-column: 1 / -1;
+    background: rgba(21,102,192,0.12);
+    border: 1px solid rgba(21,102,192,0.25);
+    border-radius: 12px;
+    padding: 14px 24px;
+    display: flex; align-items: center; gap: 32px;
+  }
+  .bpo-stat { text-align: center; }
+  .bpo-num {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: 28px; color: var(--blue-light);
+  }
+  .bpo-label { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .bpo-divider { width: 1px; height: 40px; background: var(--border); }
+
+  /* SLIDE 4 — WHY PAKISTAN */
+  #s4 { background: var(--navy); }
+  #s4 .slide-inner { flex-direction: column; }
+  .cost-table {
+    width: 100%; border-collapse: collapse; margin-bottom: 24px;
+  }
+  .cost-table th {
+    text-align: left; padding: 12px 20px;
+    font-size: 11px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--muted);
+    border-bottom: 1px solid var(--border);
+  }
+  .cost-table th.pk { color: var(--orange); }
+  .cost-table td {
+    padding: 14px 20px;
+    font-size: 15px; border-bottom: 1px solid var(--border);
+  }
+  .cost-table td:first-child { color: rgba(255,255,255,0.7); font-weight: 400; }
+  .cost-table td.uk { color: rgba(255,255,255,0.5); }
+  .cost-table td.pk { color: var(--white); font-weight: 500; }
+  .cost-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .cost-footer {
+    display: flex; gap: 16px; flex-wrap: wrap;
+  }
+  .cost-pill {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 100px; padding: 8px 16px;
+    font-size: 13px; color: rgba(255,255,255,0.7);
+  }
+  .cost-pill .dot-pill {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--blue-light);
+  }
+  .saving-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,85,51,0.12);
+    border: 1px solid rgba(255,85,51,0.3);
+    border-radius: 12px; padding: 12px 24px;
+    margin-bottom: 20px;
+  }
+  .saving-num {
+    font-family: 'Syne', sans-serif; font-size: 36px; font-weight: 800;
+    color: var(--orange);
+  }
+  .saving-label { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.4; }
+
+  /* SLIDE 5 — ISLAMABAD */
+  #s5 { background: var(--navy); }
+  #s5 .slide-inner { flex-direction: column; }
+  .islamabad-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 16px; flex: 1;
+  }
+  .isb-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 20px; overflow: hidden;
+    display: flex; flex-direction: column;
+    transition: border-color 0.25s, transform 0.25s;
+  }
+  .isb-card:hover { border-color: rgba(255,255,255,0.15); transform: translateY(-3px); }
+  .isb-img {
+    height: 160px; background: #1a2d4e;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; color: var(--muted);
+    overflow: hidden; position: relative;
+  }
+  .isb-img img { width: 100%; height: 100%; object-fit: cover; }
+  .isb-img .img-placeholder {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 8px; color: var(--muted); font-size: 12px;
+  }
+  .isb-body { padding: 20px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
+  .isb-title { font-weight: 600; font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--off-white); }
+  .isb-desc { font-size: 13px; line-height: 1.6; color: var(--muted); }
+
+  /* SLIDE 6 — WHY ME */
+  #s6 { background: var(--navy); }
+  #s6 .slide-inner { flex-direction: column; }
+  .whyme-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 16px; flex: 1;
+  }
+  .whyme-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 20px; padding: 28px;
+    display: flex; flex-direction: column; gap: 14px;
+    transition: border-color 0.2s;
+  }
+  .whyme-card:hover { border-color: rgba(255,255,255,0.12); }
+  .whyme-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: rgba(21,102,192,0.2);
+    border: 1px solid rgba(21,102,192,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+  }
+  .whyme-card-title { font-weight: 700; font-size: 15px; letter-spacing: 0.02em; }
+  .whyme-points { display: flex; flex-direction: column; gap: 8px; }
+  .whyme-point {
+    display: flex; gap: 10px; align-items: flex-start;
+    font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.5;
+  }
+  .whyme-point::before {
+    content: '→'; color: var(--orange); font-size: 12px; margin-top: 1px; flex-shrink: 0;
+  }
+  .quote-bar {
+    background: rgba(255,85,51,0.08);
+    border: 1px solid rgba(255,85,51,0.2);
+    border-radius: 12px; padding: 16px 24px;
+    font-style: italic; font-size: 16px; font-weight: 300;
+    color: rgba(255,255,255,0.85); line-height: 1.5;
+    margin-top: 4px;
+  }
+
+  /* SLIDE 7 — OPTIONS */
+  #s7 { background: var(--navy); }
+  #s7 .slide-inner { flex-direction: row; gap: 24px; align-items: stretch; }
+  .option-card {
+    flex: 1; border-radius: 24px; padding: 36px;
+    display: flex; flex-direction: column; gap: 20px;
+    position: relative; overflow: hidden;
+  }
+  .option-card.recommended {
+    background: linear-gradient(145deg, rgba(21,102,192,0.2), rgba(21,102,192,0.05));
+    border: 1px solid rgba(21,102,192,0.4);
+  }
+  .option-card.secondary {
+    background: var(--card);
+    border: 1px solid var(--border);
+  }
+  .option-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 5px 12px; border-radius: 100px;
+  }
+  .option-tag.rec { background: var(--orange); color: white; }
+  .option-tag.alt { background: rgba(255,255,255,0.08); color: var(--muted); }
+  .option-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 26px; font-weight: 800; line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  .option-desc {
+    font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.6;
+  }
+  .option-points { display: flex; flex-direction: column; gap: 10px; margin-top: auto; }
+  .option-point {
+    display: flex; gap: 10px; align-items: flex-start;
+    font-size: 14px; line-height: 1.5;
+  }
+  .op-check { color: #4ade80; font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+  .op-x { color: rgba(255,255,255,0.3); font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+  .option-card.recommended::after {
+    content: '';
+    position: absolute; top: -60px; right: -60px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(21,102,192,0.3) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* SLIDE 8 — CLOSING */
+  #s8 {
+    background: var(--navy);
+    justify-content: center; align-items: center;
+    text-align: center;
+  }
+  #s8::before {
+    content: '';
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(21,102,192,0.2) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .closing-inner {
+    position: relative; z-index: 2;
+    display: flex; flex-direction: column;
+    align-items: center; gap: 28px;
+    padding: 40px;
+  }
+  .closing-quivo {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: 56px; letter-spacing: -0.04em;
+    color: var(--blue-light);
+  }
+  .closing-quote {
+    font-size: 22px; font-weight: 300; font-style: italic;
+    color: rgba(255,255,255,0.75); max-width: 560px; line-height: 1.5;
+  }
+  .closing-divider {
+    width: 48px; height: 2px; background: var(--orange); border-radius: 2px;
+  }
+  .closing-bullets {
+    display: flex; flex-direction: column; gap: 10px; text-align: left;
+  }
+  .closing-bullet {
+    display: flex; gap: 12px; align-items: center;
+    font-size: 15px; color: rgba(255,255,255,0.75);
+  }
+  .closing-bullet::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--orange); flex-shrink: 0;
+  }
+  .closing-presenter {
+    margin-top: 12px;
+    border: 1px solid var(--border);
+    border-radius: 16px; padding: 20px 32px;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .closing-name {
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: 20px;
+  }
+  .closing-role { font-size: 14px; color: var(--muted); }
+  .closing-contact { font-size: 13px; color: var(--blue-light); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .slide.active .animate-1 { animation: fadeUp 0.5s ease forwards 0.1s; opacity: 0; }
+  .slide.active .animate-2 { animation: fadeUp 0.5s ease forwards 0.2s; opacity: 0; }
+  .slide.active .animate-3 { animation: fadeUp 0.5s ease forwards 0.3s; opacity: 0; }
+  .slide.active .animate-4 { animation: fadeUp 0.5s ease forwards 0.4s; opacity: 0; }
+  .slide.active .animate-5 { animation: fadeUp 0.5s ease forwards 0.5s; opacity: 0; }
+  .slide.active .animate-6 { animation: fadeUp 0.5s ease forwards 0.6s; opacity: 0; }
+</style>
+</head>
+<body>
+
+<div class="deck">
+
+  <!-- LOGO CORNER (all slides) -->
+  <div class="logo-corner">QUIVO</div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- SLIDE 1: TITLE -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="slide active" id="s1">
+    <div class="slide-inner" style="justify-content:center;">
+      <div class="s1-tag animate-1"><span></span> Internal Strategic Proposal</div>
+      <h1 class="s1-title animate-2">
+        Turning Cost Pressure<br>into <span class="accent">Scalable Growth</span>
+      </h1>
+      <p class="s1-sub animate-3">A proposal for offshore expansion — reducing costs without sacrificing performance.</p>
+      <div class="s1-presenter animate-4">
+        <div class="s1-avatar">Q</div>
+        <div class="s1-presenter-info">
+          <div class="s1-presenter-name">[Your Name]</div>
+          <div class="s1-presenter-role">[Your Role] · Quivo UK</div>
+        </div>
+      </div>
+    </div>
+    <div class="s1-quivo-big">QUIVO</div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- SLIDE 2: THE PROBLEM -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="slide" id="s2">
+    <div class="slide-inner">
+      <div class="s2-left">
+        <div class="slide-label animate-1">01 — Situation</div>
+        <div class="s2-heading animate-2">
+          Where<br>we stand<br><span class="dim">today.</span>
+        </div>
+        <div class="s2-stat animate-3">
+          <div class="s2-stat-num">↓</div>
+          <div class="s2-stat-label">Efficiency declining as teams shrink</div>
+        </div>
+      </div>
+      <div class="s2-right">
+        <div class="problem-card animate-2">
+          <p>Current cost-cutting measures are placing pressure on operational output.</p>
+        </div>
+        <div class="problem-card animate-3">
+          <p>Workforce reductions are stretching existing teams thin.</p>
+        </div>
+        <div class="problem-card animate-4">
+          <p>Traditional downsizing risks long-term efficiency and service quality.</p>
+        </div>
+        <div class="problem-card highlight animate-5">
+          <p>The question is not whether to reduce costs — it's how to do it without sacrificing performance.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- SLIDE 3: THE INSIGHT -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="slide" id="s3">
+    <div class="slide-inner">
+      <div class="slide-label animate-1">02 — Insight</div>
+      <h2 class="slide-title animate-2">Cost reduction and efficiency<br>are not opposites.</h2>
+      <div class="s3-grid">
+        <div class="s3-points animate-3">
+          <div class="s3-point">
+            <div class="s3-bullet"></div>
+            <p>Companies that offshore strategically don't just cut costs — they scale output.</p>
+          </div>
+          <div class="s3-point">
+            <div class="s3-bullet"></div>
+            <p>Quivo already proved this model: the GCC expansion via GWC unlocked new markets without disrupting core operations.</p>
+          </div>
+          <div class="s3-point">
+            <div class="s3-bullet"></div>
+            <p>South Asia is the next logical frontier — and global leaders are already there.</p>
+          </div>
+        </div>
+        <div class="s3-companies animate-4">
+          <div class="company-card">
+            <div class="company-logo" style="background:#111;color:white;">M</div>
+            <div class="company-info">
+              <div class="company-name">MOTIVE</div>
+              <div class="company-stat">$2.85B valuation. 60% of engineering built in South Asia.</div>
+            </div>
+          </div>
+          <div class="company-card">
+            <div class="company-logo" style="background:#c1001f;color:white;">S&P</div>
+            <div class="company-info">
+              <div class="company-name">S&P GLOBAL</div>
+              <div class="company-stat">10,000+ employees across South Asia operations.</div>
+            </div>
+          </div>
+          <div class="company-card">
+            <div class="company-logo" style="background:linear-gradient(135deg,#f97316,#ef4444);color:white;">ibex</div>
+            <div class="company-info">
+              <div class="company-name">IBEX</div>
+              <div class="company-stat">30,000+ agents. Largest CX delivery hubs in South Asia.</div>
+            </div>
+          </div>
+          <div class="company-card">
+            <div class="company-logo" style="background:#1a1a2e;color:#4f8ef7;font-size:10px;">CNX</div>
+            <div class="company-info">
+              <div class="company-name">CONCENTRIX</div>
+              <div class="company-stat">100,000+ South Asia headcount. Serving Fortune 500 globally.</div>
+            </div>
+          </div>
+        </div>
+        <div class="bpo-bar animate-5">
+          <div class="bpo-stat">
+            <div class="bpo-num">$970M</div>
+            <div class="bpo-label">Pakistan BPO market 2025</div>
+          </div>
+          <div class="bpo-divider"></div>
+          <div class="bpo-stat">
+            <div class="bpo-num">17%</div>
+            <div class="bpo-label">Annual growth rate</div>
+          </div>
+          <div class="bpo-divider"></div>
+          <div class="bpo-stat">
+            <div class="bpo-num">60%</div>
+            <div class="bpo-label">Avg. cost saving vs West</div>
+          </div>
+          <div class="bpo-divider"></div>
+          <div class="bpo-stat">
+            <div class="bpo-num">200+</div>
+            <div class="bpo-label">International firms operating there</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- SLIDE 4: WHY PAKISTAN -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="slide" id="s4">
+    <div class="slide-inner">
+      <div class="slide-label animate-1">03 — The Case</div>
+      <h2 class="slide-title animate-2">The case for South Asia: <span style="color:var(--orange)">Pakistan.</span></h2>
+      <div class="saving-badge animate-3">
+        <div class="saving-num">60–70%</div>
+        <div class="saving-label">reduction in operational cost<br>without compromising talent quality</div>
+      </div>
+      <table class="cost-table animate-4">
+        <thead>
+          <tr>
+            <th>Role</th>
+            <th>UK / EU Monthly</th>
+            <th class="pk">Pakistan Monthly</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Operations Staff</td>
+            <td class="uk">£2,000 – £3,000</td>
+            <td class="pk">£300 – £700</td>
+          </tr>
+          <tr>
+            <td>Tech / IT</td>
+            <td class="uk">£3,500 – £5,000</td>
+            <td class="pk">£800 – £1,500</td>
+          </tr>
+          <tr>
+            <td>Customer Support</td>
+            <td class="uk">£1,800 – £2,500</td>
+            <td class="pk">£250 – £600</td>
+          </tr>
+          <tr>
+            <td>Office Space (per seat)</td>
+            <td class="uk">£500+</td>
+            <td class="pk">£100 – £200</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="cost-footer animate-5">
+        <div class="cost-pill"><span class="dot-pill"></span> English-speaking, educated workforce</div>
+        <div class="cost-pill"><span class="dot-pill"></span> UTC+5 — strong overlap with UK hours</div>
+        <div class="cost-pill"><span class="dot-pill"></span> Thriving tech & logistics ecosystem</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- SLIDE 5: ISLAMABAD -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="slide" id="s5">
+    <div class="slide-inner">
+      <div class="slide-label animate-1">04 — The Location</div>
+      <h2 class="slide-title animate-2">A modern, controlled operational base.</h2>
+      <div class="islamabad-grid">
+        <div class="isb-card animate-3">
+          <div class="isb-img">
+            <div class="img-placeholder">
+              <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              <span>Add Faisal Mosque photo</span>
+            </div>
+          </div>
+          <div class="isb-body">
+            <div class="isb-title">Capital City</div>
+            <div class="isb-desc">Politically stable. Home to NUST, FAST & QAU — top engineering universities with a world-class talent pipeline.</div>
+          </div>
+        </div>
+        <div class="isb-card animate-4">
+          <div class="isb-img">
+            <div class="img-placeholder">
+              <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+              <span>Add Centaurus / skyline photo</span>
+            </div>
+          </div>
+          <div class="isb-body">
+            <div class="isb-title">World-Class Offices</div>
+            <div class="isb-desc">Modern business parks and office spaces with high-speed connectivity — at a fraction of European costs.</div>
+          </div>
+        </div>
+        <div class="isb-card animate-5">
+          <div class="isb-img">
+            <div class="img-placeholder">
+              <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>Add warehouse / logistics photo</span>
+            </div>
+          </div>
+          <div class="isb-body">
+            <div class="isb-title">Logistics Backbone</div>
+            <div class="isb-desc">$80B+ annual trade volume. Fast-growing e-commerce market with established warehousing and last-mile delivery networks.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- SLIDE 6: WHY ME -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="slide" id="s6">
+    <div class="slide-inner">
+      <div class="slide-label animate-1">05 — The Execution</div>
+      <h2 class="slide-title animate-2">You can outsource tasks.<br>You cannot outsource <span style="color:var(--orange)">trust.</span></h2>
+      <div class="whyme-grid animate-3">
+        <div class="whyme-card">
+          <div class="whyme-icon">🤝</div>
+          <div class="whyme-card-title">Years of Trust</div>
+          <div class="whyme-points">
+            <div class="whyme-point">Long-standing Quivo employee with proven track record</div>
+            <div class="whyme-point">Company standards and culture understood inside out</div>
+          </div>
+        </div>
+        <div class="whyme-card">
+          <div class="whyme-icon">✅</div>
+          <div class="whyme-card-title">Quality Assurance</div>
+          <div class="whyme-points">
+            <div class="whyme-point">No remote explanation needed — standards transferred firsthand</div>
+            <div class="whyme-point">Only someone who lived it can enforce it</div>
+          </div>
+        </div>
+        <div class="whyme-card">
+          <div class="whyme-icon">📍</div>
+          <div class="whyme-card-title">Local Expertise</div>
+          <div class="whyme-points">
+            <div class="whyme-point">Pakistani-born with deep networks and on-ground knowledge</div>
+            <div class="whyme-point">Contacts that take years to build — already there</div>
+          </div>
+        </div>
+        <div class="whyme-card">
+          <div class="whyme-icon">⚙️</div>
+          <div class="whyme-card-title">Multi-Functional Reach</div>
+          <div class="whyme-points">
+            <div class="whyme-point">Can oversee Operations, IT, HR and Finance support</div>
+            <div class="whyme-point">One trusted person covering what would take multiple hires</div>
+          </div>
+        </div>
+      </div>
+      <div class="quote-bar animate-4">"I am not proposing a move. I am offering a controlled execution."</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- SLIDE 7: OPTIONS -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="slide" id="s7">
+    <div class="slide-inner" style="padding-top:44px;">
+      <div class="slide-label animate-1">06 — Decision</div>
+      <h2 class="slide-title animate-2" style="margin-bottom:24px;">The path forward.</h2>
+      <div style="display:flex;gap:24px;flex:1;" class="animate-3">
+        <div class="option-card recommended">
+          <div class="option-tag rec">★ Recommended</div>
+          <div class="option-title">Independent<br>Pakistan Entity</div>
+          <div class="option-desc">Operating exclusively for Quivo. Built and managed by a trusted internal operator from day one.</div>
+          <div class="option-points">
+            <div class="option-point"><span class="op-check">✓</span> Fastest to launch</div>
+            <div class="option-point"><span class="op-check">✓</span> Zero legal burden on Quivo</div>
+            <div class="option-point"><span class="op-check">✓</span> Fully managed by trusted operator</div>
+            <div class="option-point"><span class="op-check">✓</span> Scalable entirely on Quivo's terms</div>
+            <div class="option-point"><span class="op-check">✓</span> Immediate cost impact</div>
+          </div>
+        </div>
+        <div class="option-card secondary">
+          <div class="option-tag alt">Alternative</div>
+          <div class="option-title">Quivo Direct<br>Expansion</div>
+          <div class="option-desc">Quivo directly establishes and operates a Pakistan office. Full ownership but significantly higher complexity.</div>
+          <div class="option-points">
+            <div class="option-point"><span class="op-x">–</span> Higher upfront investment required</div>
+            <div class="option-point"><span class="op-x">–</span> Legal & compliance complexity</div>
+            <div class="option-point"><span class="op-x">–</span> Slower execution timeline</div>
+            <div class="option-point"><span class="op-check">✓</span> Full direct control</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- SLIDE 8: CLOSING -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="slide" id="s8">
+    <div class="closing-inner">
+      <div class="closing-quivo animate-1">QUIVO</div>
+      <div class="closing-quote animate-2">"While others react to pressure,<br>we build the next move."</div>
+      <div class="closing-divider animate-3"></div>
+      <div class="closing-bullets animate-4">
+        <div class="closing-bullet">Cost optimisation without sacrificing quality</div>
+        <div class="closing-bullet">A trusted operator already in place</div>
+        <div class="closing-bullet">A proven global model, applied at the right moment</div>
+      </div>
+      <div class="closing-presenter animate-5">
+        <div class="closing-name">[Your Name]</div>
+        <div class="closing-role">[Your Role] · Quivo UK</div>
+        <div class="closing-contact">[email@quivo.co] · [+44 xxx xxx xxxx]</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /deck -->
+
+<!-- NAVIGATION -->
+<nav class="nav">
+  <button class="nav-btn" id="prevBtn" onclick="navigate(-1)" disabled>← Prev</button>
+  <div class="dots" id="dots"></div>
+  <div class="slide-counter" id="counter">1 / 8</div>
+  <button class="nav-btn primary" id="nextBtn" onclick="navigate(1)">Next →</button>
+</nav>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let current = 0;
+
+  const dotsEl = document.getElementById('dots');
+  const counter = document.getElementById('counter');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+
+  // Build dots
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => goTo(i);
+    dotsEl.appendChild(d);
+  }
+
+  function goTo(idx) {
+    if (idx < 0 || idx >= total) return;
+    slides[current].classList.remove('active');
+    slides[current].classList.add('exiting');
+    setTimeout(() => slides[current].classList.remove('exiting'), 600);
+    current = idx;
+    slides[current].classList.add('active');
+    document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
+    counter.textContent = (current + 1) + ' / ' + total;
+    prevBtn.disabled = current === 0;
+    nextBtn.textContent = current === total - 1 ? 'Done' : 'Next →';
+    nextBtn.disabled = false;
+  }
+
+  function navigate(dir) { goTo(current + dir); }
+
+  // Keyboard navigation
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') navigate(1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') navigate(-1);
+  });
+</script>
+</body>
+</html>
