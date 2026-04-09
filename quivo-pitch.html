@@ -439,7 +439,7 @@
 
   /* SLIDE 6 — WHY ME */
   #s6 { background: var(--navy); }
-  #s6 .slide-inner { flex-direction: column; gap: 24px; }
+  #s6 .slide-inner { flex-direction: column; gap: 24px; position: relative; }
   .whyme-intro {
     display: flex; flex-direction: column; gap: 8px;
   }
@@ -524,15 +524,17 @@
     content: '▸'; color: var(--blue-light); font-size: 12px; margin-top: 2px; flex-shrink: 0;
   }
   .quote-bar {
+    position: absolute; top: 100px; right: 80px;
+    width: 380px;
     background: linear-gradient(90deg, rgba(255,85,51,0.12) 0%, rgba(255,85,51,0.06) 100%);
     border: 1.5px solid rgba(255,85,51,0.3);
     border-left: 4px solid var(--orange);
-    border-radius: 16px; padding: 28px 32px;
-    font-style: italic; font-size: 18px; font-weight: 400;
-    color: rgba(255,255,255,0.9); line-height: 1.7;
-    text-align: center; letter-spacing: 0.2px;
-    box-shadow: 0 8px 24px rgba(255,85,51,0.1);
-    margin-bottom: 48px;
+    border-radius: 16px; padding: 24px 28px;
+    font-style: italic; font-size: 16px; font-weight: 400;
+    color: rgba(255,255,255,0.9); line-height: 1.6;
+    text-align: left; letter-spacing: 0.2px;
+    box-shadow: 0 8px 24px rgba(255,85,51,0.15);
+    z-index: 10;
   }
 
   /* SLIDE 7 — OPTIONS */
