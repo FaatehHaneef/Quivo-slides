@@ -126,38 +126,40 @@
     background: var(--orange-dim);
     border: 1px solid rgba(255,85,51,0.3);
     border-radius: 100px;
-    padding: 6px 16px;
-    font-size: 12px; font-weight: 500; color: var(--orange);
-    letter-spacing: 0.08em; text-transform: uppercase;
-    margin-bottom: 32px;
+    padding: 8px 18px;
+    font-size: 11px; font-weight: 600; color: var(--orange);
+    letter-spacing: 0.12em; text-transform: uppercase;
+    margin-bottom: 36px;
   }
   .s1-tag span { width: 6px; height: 6px; border-radius: 50%; background: var(--orange); }
   .s1-title {
     font-family: 'Syne', sans-serif;
-    font-size: clamp(48px, 6vw, 80px);
-    font-weight: 800; line-height: 1.0;
-    letter-spacing: -0.03em;
-    max-width: 700px;
-    margin-bottom: 28px;
+    font-size: 72px;
+    font-weight: 800; line-height: 1.15;
+    letter-spacing: -0.035em;
+    max-width: 900px;
+    margin-bottom: 32px;
+    word-spacing: 0.05em;
   }
   .s1-title .accent { color: var(--orange); }
   .s1-sub {
-    font-size: 18px; font-weight: 300; color: var(--muted);
-    max-width: 420px; line-height: 1.6;
-    margin-bottom: 48px;
+    font-size: 18px; font-weight: 400; color: rgba(255,255,255,0.7);
+    max-width: 500px; line-height: 1.7;
+    margin-bottom: 56px;
   }
   .s1-presenter {
-    display: flex; align-items: center; gap: 14px;
+    display: flex; align-items: center; gap: 16px;
   }
   .s1-avatar {
-    width: 44px; height: 44px; border-radius: 50%;
+    width: 52px; height: 52px; border-radius: 12px;
     background: linear-gradient(135deg, var(--blue), var(--blue-light));
     display: flex; align-items: center; justify-content: center;
-    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 16px;
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 18px;
+    box-shadow: 0 8px 24px rgba(21,102,192,0.3);
   }
-  .s1-presenter-info { line-height: 1.4; }
-  .s1-presenter-name { font-weight: 500; font-size: 15px; }
-  .s1-presenter-role { font-size: 13px; color: var(--muted); }
+  .s1-presenter-info { line-height: 1.5; }
+  .s1-presenter-name { font-weight: 600; font-size: 16px; }
+  .s1-presenter-role { font-size: 14px; color: rgba(255,255,255,0.6); }
   .s1-quivo-big {
     position: absolute; right: 80px; top: 50%; transform: translateY(-50%);
     font-family: 'Syne', sans-serif; font-weight: 800;
@@ -169,20 +171,21 @@
   /* SLIDE LAYOUT BASE */
   .slide-inner {
     flex: 1; display: flex; flex-direction: column;
-    padding: 52px 80px 100px;
+    padding: 56px 80px 110px;
     position: relative;
   }
   .slide-label {
-    font-size: 11px; font-weight: 500; letter-spacing: 0.14em;
+    font-size: 12px; font-weight: 600; letter-spacing: 0.16em;
     text-transform: uppercase; color: var(--orange);
-    margin-bottom: 12px;
+    margin-bottom: 18px;
   }
   .slide-title {
     font-family: 'Syne', sans-serif;
-    font-size: clamp(28px, 3.5vw, 44px);
-    font-weight: 800; line-height: 1.1;
-    letter-spacing: -0.02em;
-    margin-bottom: 40px;
+    font-size: 56px;
+    font-weight: 800; line-height: 1.15;
+    letter-spacing: -0.03em;
+    margin-bottom: 44px;
+    color: var(--white);
   }
 
   /* SLIDE 2 — THE PROBLEM */
@@ -762,9 +765,9 @@
           <div class="isb-img">
             <img src="./centaurus-mall.jpg" alt="Centaurus Mall" />
           </div>
-          <div class=\"isb-body\">
-            <div class=\"isb-title\">Modern Infrastructure</div>
-            <div class=\"isb-desc\">Premium office hubs with world-class connectivity, facilities, and business ecosystems — at 70% less cost than London.</div>
+          <div class="isb-body">
+            <div class="isb-title">Modern Infrastructure</div>
+            <div class="isb-desc">Premium office hubs with world-class connectivity, facilities, and business ecosystems — at 70% less cost than London.</div>
           </div>
         </div>
         <div class="isb-card animate-5">
