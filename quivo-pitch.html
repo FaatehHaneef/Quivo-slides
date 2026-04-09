@@ -326,8 +326,8 @@
   #s3 { background: var(--navy); }
   #s3 .slide-inner { flex-direction: column; }
   .s3-grid {
-    display: grid; grid-template-columns: 180px 1fr 1fr;
-    gap: 24px; flex: 1; align-items: start;
+    display: grid; grid-template-columns: 280px 1fr 1fr;
+    gap: 32px; flex: 1; align-items: start;
   }
   .s3-points {
     display: flex; flex-direction: column; gap: 16px;
@@ -389,18 +389,19 @@
     background: linear-gradient(135deg, rgba(21,102,192,0.15) 0%, rgba(21,102,192,0.08) 100%);
     border: 1.5px solid rgba(21,102,192,0.3);
     border-radius: 16px;
-    padding: 28px 22px;
-    display: flex; flex-direction: column; align-items: center; gap: 24px;
+    padding: 36px 28px;
+    display: flex; flex-direction: column; align-items: stretch; gap: 28px;
     align-self: start;
     margin-top: 0;
     width: 100%;
+    overflow: visible;
   }
-  .bpo-stat { text-align: center; }
+  .bpo-stat { text-align: left; flex: 1; }
   .bpo-num {
     font-family: 'Outfit', sans-serif; font-weight: 800;
-    font-size: 26px; color: var(--blue-light);
+    font-size: 32px; color: var(--blue-light); line-height: 1.2;
   }
-  .bpo-label { font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .bpo-label { font-size: 13px; color: rgba(255,255,255,0.75); margin-top: 6px; font-weight: 500; line-height: 1.4; }
   .bpo-divider { display: none; }
 
   /* SLIDE 4 — WHY PAKISTAN */
