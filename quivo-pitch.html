@@ -326,12 +326,12 @@
   #s3 { background: var(--navy); }
   #s3 .slide-inner { flex-direction: column; padding: 48px 80px 80px; }
   .s3-grid {
-    display: grid; grid-template-columns: 280px 1fr 1fr;
+    display: grid; grid-template-columns: 1fr 1fr;
     gap: 24px; align-items: start; width: 100%;
   }
   .s3-points {
     display: flex; flex-direction: column; gap: 16px;
-    grid-column: 2;
+    grid-column: 1;
   }
   .s3-point {
     display: flex; gap: 14px; align-items: flex-start;
@@ -342,7 +342,7 @@
   }
   .s3-point p { font-size: 16px; line-height: 1.6; color: rgba(255,255,255,0.8); }
   .s3-companies {
-    grid-column: 3;
+    grid-column: 2;
     display: flex; flex-direction: column; gap: 10px;
   }
   .company-card {
@@ -391,11 +391,10 @@
     border-radius: 16px;
     padding: 28px 24px;
     display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
-    align-self: end;
-    margin-top: auto;
     width: 100%;
     overflow: visible;
     height: fit-content;
+    margin-top: 8px;
   }
   .bpo-stat { text-align: left; padding: 12px 0; border-bottom: 1px solid rgba(21,102,192,0.2); }
   .bpo-stat:nth-child(odd) { border-right: 1px solid rgba(21,102,192,0.2); padding-right: 16px; padding-left: 0; }
@@ -909,6 +908,27 @@
             <p>South Asia is the next logical frontier — and global leaders are already there.</p>
           </div>
         </div>
+        <div class="bpo-bar animate-5">
+          <div class="bpo-stat">
+            <div class="bpo-num">$970M</div>
+            <div class="bpo-label">Pakistan BPO market 2025</div>
+          </div>
+          <div class="bpo-divider"></div>
+          <div class="bpo-stat">
+            <div class="bpo-num">17%</div>
+            <div class="bpo-label">Annual growth rate</div>
+          </div>
+          <div class="bpo-divider"></div>
+          <div class="bpo-stat">
+            <div class="bpo-num">60%</div>
+            <div class="bpo-label">Avg. cost saving vs West</div>
+          </div>
+          <div class="bpo-divider"></div>
+          <div class="bpo-stat">
+            <div class="bpo-num">200+</div>
+            <div class="bpo-label">International firms operating there</div>
+          </div>
+        </div>
         <div class="s3-companies animate-4">
           <div class="company-card">
             <div class="company-logo" style="background:#111;color:white;">M</div>
@@ -937,27 +957,6 @@
               <div class="company-name">CONCENTRIX</div>
               <div class="company-stat">100,000+ South Asia headcount. Serving Fortune 500 globally.</div>
             </div>
-          </div>
-        </div>
-        <div class="bpo-bar animate-5">
-          <div class="bpo-stat">
-            <div class="bpo-num">$970M</div>
-            <div class="bpo-label">Pakistan BPO market 2025</div>
-          </div>
-          <div class="bpo-divider"></div>
-          <div class="bpo-stat">
-            <div class="bpo-num">17%</div>
-            <div class="bpo-label">Annual growth rate</div>
-          </div>
-          <div class="bpo-divider"></div>
-          <div class="bpo-stat">
-            <div class="bpo-num">60%</div>
-            <div class="bpo-label">Avg. cost saving vs West</div>
-          </div>
-          <div class="bpo-divider"></div>
-          <div class="bpo-stat">
-            <div class="bpo-num">200+</div>
-            <div class="bpo-label">International firms operating there</div>
           </div>
         </div>
       </div>
