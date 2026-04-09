@@ -330,11 +330,12 @@
     gap: 24px; align-items: start; width: 100%;
   }
   .s3-points {
-    display: flex; flex-direction: column; gap: 16px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
     grid-column: 1;
   }
   .s3-point {
     display: flex; gap: 14px; align-items: flex-start;
+    grid-column: 1 / -1;
   }
   .s3-bullet {
     width: 8px; height: 8px; border-radius: 50%;
@@ -345,8 +346,8 @@
     background: linear-gradient(135deg, rgba(255,85,51,0.15) 0%, rgba(255,85,51,0.06) 100%);
     border: 1.5px solid rgba(255,85,51,0.3);
     border-radius: 12px;
-    padding: 16px 18px;
-    margin-top: 12px;
+    padding: 18px 16px;
+    margin-top: 0;
   }
   .s3-companies {
     grid-column: 2;
