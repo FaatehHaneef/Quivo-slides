@@ -342,17 +342,22 @@
   #s5 .slide-inner { flex-direction: column; }
   .islamabad-grid {
     display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: 16px; flex: 1;
+    gap: 20px; flex: 1; margin-top: 8px;
   }
   .isb-card {
     background: var(--card); border: 1px solid var(--border);
-    border-radius: 20px; overflow: hidden;
+    border-radius: 24px; overflow: hidden;
     display: flex; flex-direction: column;
-    transition: border-color 0.25s, transform 0.25s;
+    transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
   }
-  .isb-card:hover { border-color: rgba(255,255,255,0.15); transform: translateY(-3px); }
+  .isb-card:hover { 
+    border-color: rgba(21,102,192,0.5); 
+    transform: translateY(-6px);
+    box-shadow: 0 12px 28px rgba(21,102,192,0.15);
+  }
   .isb-img {
-    height: 160px; background: #1a2d4e;
+    height: 240px; background: #1a2d4e;
     display: flex; align-items: center; justify-content: center;
     font-size: 13px; color: var(--muted);
     overflow: hidden; position: relative;
@@ -363,47 +368,76 @@
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     gap: 8px; color: var(--muted); font-size: 12px;
   }
-  .isb-body { padding: 20px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
-  .isb-title { font-weight: 600; font-size: 14px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--off-white); }
-  .isb-desc { font-size: 13px; line-height: 1.6; color: var(--muted); }
+  .isb-body { padding: 24px; flex: 1; display: flex; flex-direction: column; gap: 12px; }
+  .isb-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--white); }
+  .isb-desc { font-size: 13px; line-height: 1.7; color: rgba(255,255,255,0.65); }
 
   /* SLIDE 6 — WHY ME */
   #s6 { background: var(--navy); }
-  #s6 .slide-inner { flex-direction: column; }
+  #s6 .slide-inner { flex-direction: column; gap: 24px; }
+  .whyme-intro {
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .whyme-intro-label { 
+    font-size: 11px; font-weight: 500; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--orange);
+  }
+  .whyme-intro-text {
+    font-size: 18px; font-weight: 400; color: rgba(255,255,255,0.75);
+    line-height: 1.6; max-width: 600px;
+  }
   .whyme-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 16px; flex: 1;
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    gap: 14px; flex: 1;
   }
   .whyme-card {
     background: var(--card); border: 1px solid var(--border);
-    border-radius: 20px; padding: 28px;
-    display: flex; flex-direction: column; gap: 14px;
-    transition: border-color 0.2s;
+    border-radius: 16px; padding: 20px;
+    display: flex; flex-direction: column; gap: 12px;
+    transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    position: relative;
   }
-  .whyme-card:hover { border-color: rgba(255,255,255,0.12); }
+  .whyme-card:hover { 
+    border-color: rgba(21,102,192,0.5);
+    box-shadow: 0 8px 24px rgba(21,102,192,0.2);
+    transform: translateY(-3px);
+  }
+  .whyme-card::after {
+    content: '';
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--blue-light), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .whyme-card:hover::after { opacity: 1; }
   .whyme-icon {
-    width: 44px; height: 44px; border-radius: 12px;
-    background: rgba(21,102,192,0.2);
-    border: 1px solid rgba(21,102,192,0.3);
+    width: 40px; height: 40px; border-radius: 10px;
+    background: rgba(21,102,192,0.15);
+    border: 1px solid rgba(21,102,192,0.35);
     display: flex; align-items: center; justify-content: center;
-    font-size: 20px;
+    font-size: 18px; flex-shrink: 0;
   }
-  .whyme-card-title { font-weight: 700; font-size: 15px; letter-spacing: 0.02em; }
-  .whyme-points { display: flex; flex-direction: column; gap: 8px; }
+  .whyme-card-title { 
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 13px; 
+    letter-spacing: 0.04em; text-transform: uppercase; color: var(--white);
+  }
+  .whyme-points { display: flex; flex-direction: column; gap: 7px; }
   .whyme-point {
-    display: flex; gap: 10px; align-items: flex-start;
-    font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.5;
+    display: flex; gap: 8px; align-items: flex-start;
+    font-size: 12px; color: rgba(255,255,255,0.6); line-height: 1.5;
   }
   .whyme-point::before {
-    content: '→'; color: var(--orange); font-size: 12px; margin-top: 1px; flex-shrink: 0;
+    content: '▸'; color: var(--blue-light); font-size: 11px; margin-top: 1px; flex-shrink: 0;
   }
   .quote-bar {
-    background: rgba(255,85,51,0.08);
-    border: 1px solid rgba(255,85,51,0.2);
-    border-radius: 12px; padding: 16px 24px;
-    font-style: italic; font-size: 16px; font-weight: 300;
-    color: rgba(255,255,255,0.85); line-height: 1.5;
-    margin-top: 4px;
+    background: rgba(255,85,51,0.1);
+    border: 1px solid rgba(255,85,51,0.25);
+    border-radius: 16px; padding: 24px 32px;
+    font-style: italic; font-size: 17px; font-weight: 300;
+    color: rgba(255,255,255,0.85); line-height: 1.6;
+    text-align: center; letter-spacing: 0.3px;
   }
 
   /* SLIDE 7 — OPTIONS */
@@ -717,10 +751,7 @@
       <div class="islamabad-grid">
         <div class="isb-card animate-3">
           <div class="isb-img">
-            <div class="img-placeholder">
-              <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-              <span>Add Faisal Mosque photo</span>
-            </div>
+            <img src=\"./faisal mosque.jpg\" alt=\"Faisal Mosque\" />
           </div>
           <div class="isb-body">
             <div class="isb-title">Capital City</div>
@@ -729,74 +760,83 @@
         </div>
         <div class="isb-card animate-4">
           <div class="isb-img">
-            <div class="img-placeholder">
-              <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
-              <span>Add Centaurus / skyline photo</span>
-            </div>
+            <img src=\"./Centaurus-Mall.jpg\" alt=\"Centaurus Mall\" />
           </div>
-          <div class="isb-body">
-            <div class="isb-title">World-Class Offices</div>
-            <div class="isb-desc">Modern business parks and office spaces with high-speed connectivity — at a fraction of European costs.</div>
+          <div class=\"isb-body\">
+            <div class=\"isb-title\">Modern Infrastructure</div>
+            <div class=\"isb-desc\">Premium office hubs with world-class connectivity, facilities, and business ecosystems — at 70% less cost than London.</div>
           </div>
         </div>
         <div class="isb-card animate-5">
           <div class="isb-img">
-            <div class="img-placeholder">
-              <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              <span>Add warehouse / logistics photo</span>
-            </div>
+            <img src=\"./roads.png\" alt=\"Islamabad Highway Network\" />
           </div>
-          <div class="isb-body">
-            <div class="isb-title">Logistics Backbone</div>
-            <div class="isb-desc">$80B+ annual trade volume. Fast-growing e-commerce market with established warehousing and last-mile delivery networks.</div>
+          <div class=\"isb-body\">
+            <div class=\"isb-title\">Logistics Hub</div>
+            <div class=\"isb-desc\">Strategic gateway to South Asia. $80B+ trade volume. Established warehousing and fast-growing e-commerce infrastructure.</div>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ═══════════════════════════════════════ -->
   <!-- SLIDE 6: WHY ME -->
   <!-- ═══════════════════════════════════════ -->
   <div class="slide" id="s6">
     <div class="slide-inner">
       <div class="slide-label animate-1">05 — The Execution</div>
       <h2 class="slide-title animate-2">You can outsource tasks.<br>You cannot outsource <span style="color:var(--orange)">trust.</span></h2>
-      <div class="whyme-grid animate-3">
+      <div class="whyme-intro animate-3" style="margin-bottom: -8px;">
+        <p class="whyme-intro-text">One operator. Complete ecosystem. Zero cultural risk.</p>
+      </div>
+      <div class="whyme-grid animate-4">
         <div class="whyme-card">
-          <div class="whyme-icon">🤝</div>
-          <div class="whyme-card-title">Years of Trust</div>
+          <div class="whyme-icon">💼</div>
+          <div class="whyme-card-title">Market Expert</div>
           <div class="whyme-points">
-            <div class="whyme-point">Long-standing Quivo employee with proven track record</div>
-            <div class="whyme-point">Company standards and culture understood inside out</div>
+            <div class="whyme-point">Deep Pakistan market knowledge</div>
+            <div class="whyme-point">Competitive positioning & strategy</div>
+            <div class="whyme-point">Established networks & partnerships</div>
           </div>
         </div>
         <div class="whyme-card">
-          <div class="whyme-icon">✅</div>
-          <div class="whyme-card-title">Quality Assurance</div>
+          <div class="whyme-icon">💰</div>
+          <div class="whyme-card-title">Finance & P&L</div>
           <div class="whyme-points">
-            <div class="whyme-point">No remote explanation needed — standards transferred firsthand</div>
-            <div class="whyme-point">Only someone who lived it can enforce it</div>
+            <div class="whyme-point">Budget management & reporting</div>
+            <div class="whyme-point">Cost optimization & forecasting</div>
+            <div class="whyme-point">UK-Pakistan financial alignment</div>
           </div>
         </div>
         <div class="whyme-card">
-          <div class="whyme-icon">📍</div>
-          <div class="whyme-card-title">Local Expertise</div>
+          <div class="whyme-icon">🎯</div>
+          <div class="whyme-card-title">Customer Success</div>
           <div class="whyme-points">
-            <div class="whyme-point">Pakistani-born with deep networks and on-ground knowledge</div>
-            <div class="whyme-point">Contacts that take years to build — already there</div>
+            <div class="whyme-point">Seamless service continuity</div>
+            <div class="whyme-point">SLA enforcement & ops oversight</div>
+            <div class="whyme-point">Client retention & expansion</div>
           </div>
         </div>
         <div class="whyme-card">
           <div class="whyme-icon">⚙️</div>
-          <div class="whyme-card-title">Multi-Functional Reach</div>
+          <div class="whyme-card-title">IT & Infrastructure</div>
           <div class="whyme-points">
-            <div class="whyme-point">Can oversee Operations, IT, HR and Finance support</div>
-            <div class="whyme-point">One trusted person covering what would take multiple hires</div>
+            <div class="whyme-point">Systems integration & security</div>
+            <div class="whyme-point">Data compliance & governance</div>
+            <div class="whyme-point">Tech stack alignment</div>
+          </div>
+        </div>
+        <div class="whyme-card">
+          <div class="whyme-icon">📋</div>
+          <div class="whyme-card-title">Legal & EOR</div>
+          <div class="whyme-points">
+            <div class="whyme-point">Pakistan entity setup & ops</div>
+            <div class="whyme-point">Payroll, compliance & admin</div>
+            <div class="whyme-point">Zero burden on Quivo HQ</div>
           </div>
         </div>
       </div>
-      <div class="quote-bar animate-4">"I am not proposing a move. I am offering a controlled execution."</div>
+      <div class="quote-bar animate-5">"I am not proposing a move. I am offering a complete, trusted, operating system."</div>
     </div>
   </div>
 
