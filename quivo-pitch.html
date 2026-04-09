@@ -152,6 +152,23 @@
     color: var(--blue-light);
     opacity: 0.5;
   }
+  
+  /* WATERMARK PATTERN */
+  .slide::before {
+    content: 'QUIVO';
+    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    font-family: 'Outfit', sans-serif; font-size: 120px; font-weight: 800;
+    color: rgba(21,102,192,0.04);
+    z-index: 1; pointer-events: none;
+    letter-spacing: -0.05em;
+  }
+  #s1::before, #s6::before { display: none; }
+  #s2::before { content: 'QUIVO'; }
+  #s3::before { content: 'QUIVO'; }
+  #s4::before { content: 'QUIVO'; }
+  #s5::before { content: 'QUIVO'; }
+  #s7::before { content: 'QUIVO'; }
+  #s8::before { content: 'QUIVO'; }
 
   /* SLIDE 1 — TITLE */
   #s1 {
@@ -172,20 +189,12 @@
     position: absolute;
     bottom: -100px; left: -100px;
     width: 400px; height: 400px;
-    background: radial-gradient(circle, rgba(255,85,51,0.12) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(255,85,51,0.35) 0%, rgba(255,85,51,0.1) 70%);
     pointer-events: none;
+    box-shadow: 0 0 100px rgba(255,85,51,0.25);
   }
   .s1-tag {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: var(--orange-dim);
-    border: 1.5px solid rgba(255,85,51,0.5);
-    border-radius: 100px;
-    padding: 10px 20px;
-    font-size: 11px; font-weight: 600; color: var(--orange);
-    letter-spacing: 0.12em; text-transform: uppercase;
-    margin-bottom: 36px;
-    box-shadow: 0 0 20px rgba(255,85,51,0.2);
-    background: linear-gradient(90deg, rgba(255,85,51,0.2) 0%, rgba(255,85,51,0.1) 100%);
+    display: none!
   }
   .s1-tag span { width: 6px; height: 6px; border-radius: 50%; background: var(--orange); }
   .s1-title {
@@ -221,10 +230,10 @@
   .s1-presenter-name { font-weight: 600; font-size: 16px; }
   .s1-presenter-role { font-size: 14px; color: rgba(255,255,255,0.6); }
   .s1-quivo-big {
-    position: absolute; right: 80px; top: 50%; transform: translateY(-50%);
+    position: absolute; right: 60px; top: 45%; transform: translateY(-50%);
     font-family: 'Outfit', sans-serif; font-weight: 800;
-    font-size: 180px; letter-spacing: -0.05em;
-    color: rgba(21,102,192,0.08);
+    font-size: 240px; letter-spacing: -0.05em;
+    color: rgba(21,102,192,0.12);
     user-select: none; pointer-events: none;
   }
 
@@ -312,12 +321,12 @@
   #s3 { background: var(--navy); }
   #s3 .slide-inner { flex-direction: column; }
   .s3-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 16px; flex: 1;
+    display: grid; grid-template-columns: auto 1fr 1fr;
+    gap: 24px; flex: 1; align-items: start;
   }
   .s3-points {
     display: flex; flex-direction: column; gap: 16px;
-    grid-column: 1;
+    grid-column: 2;
   }
   .s3-point {
     display: flex; gap: 14px; align-items: flex-start;
@@ -328,7 +337,7 @@
   }
   .s3-point p { font-size: 16px; line-height: 1.6; color: rgba(255,255,255,0.8); }
   .s3-companies {
-    grid-column: 2;
+    grid-column: 3;
     display: flex; flex-direction: column; gap: 10px;
   }
   .company-card {
@@ -370,20 +379,23 @@
   .company-name { font-weight: 700; font-size: 13px; margin-bottom: 3px; letter-spacing: 0.02em; }
   .company-stat { font-size: 12px; color: rgba(255,255,255,0.6); line-height: 1.5; }
   .bpo-bar {
-    grid-column: 1 / -1;
-    background: rgba(21,102,192,0.12);
-    border: 1px solid rgba(21,102,192,0.25);
-    border-radius: 12px;
-    padding: 14px 24px;
-    display: flex; align-items: center; gap: 32px;
+    grid-column: 1;
+    grid-row: 2 / 4;
+    background: linear-gradient(135deg, rgba(21,102,192,0.15) 0%, rgba(21,102,192,0.05) 100%);
+    border: 1.5px solid rgba(21,102,192,0.3);
+    border-radius: 16px;
+    padding: 24px 20px;
+    display: flex; flex-direction: column; align-items: center; gap: 20px;
+    align-self: start;
+    margin-top: 0;
   }
   .bpo-stat { text-align: center; }
   .bpo-num {
     font-family: 'Outfit', sans-serif; font-weight: 800;
-    font-size: 28px; color: var(--blue-light);
+    font-size: 26px; color: var(--blue-light);
   }
-  .bpo-label { font-size: 11px; color: var(--muted); margin-top: 2px; }
-  .bpo-divider { width: 1px; height: 40px; background: var(--border); }
+  .bpo-label { font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .bpo-divider { display: none; }
 
   /* SLIDE 4 — WHY PAKISTAN */
   #s4 { background: var(--navy); }
@@ -776,7 +788,6 @@
   <!-- ═══════════════════════════════════════ -->
   <div class="slide active" id="s1">
     <div class="slide-inner" style="justify-content:center;">
-      <div class="s1-tag animate-1"><span></span> Internal Strategic Proposal</div>
       <h1 class="s1-title animate-2">
         Turning Cost<br>Pressure into<br><span class="accent">Scalable Growth</span>
       </h1>
