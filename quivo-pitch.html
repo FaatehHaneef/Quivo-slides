@@ -141,12 +141,16 @@
   .s1-tag span { width: 6px; height: 6px; border-radius: 50%; background: var(--orange); }
   .s1-title {
     font-family: 'Outfit', sans-serif;
-    font-size: 72px;
-    font-weight: 800; line-height: 1.15;
+    font-size: 68px;
+    font-weight: 800; line-height: 1.2;
     letter-spacing: -0.035em;
-    max-width: 900px;
-    margin-bottom: 32px;
+    max-width: 850px;
+    margin-bottom: 28px;
     word-spacing: 0.05em;
+    background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
   .s1-title .accent { color: var(--orange); }
   .s1-sub {
@@ -204,29 +208,36 @@
     display: flex; flex-direction: column; gap: 16px;
   }
   .problem-card {
-    background: var(--card);
-    border: 1px solid var(--border);
+    background: linear-gradient(135deg, rgba(26,212,254,0.08) 0%, rgba(26,212,254,0.03) 100%);
+    border: 1.5px solid rgba(26,212,254,0.25);
     border-radius: 16px;
     padding: 24px 28px;
     position: relative;
     overflow: hidden;
-    transition: border-color 0.2s, background 0.2s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   .problem-card::before {
     content: '';
     position: absolute; left: 0; top: 0; bottom: 0;
-    width: 3px;
-    background: var(--orange);
+    width: 4px;
+    background: linear-gradient(180deg, var(--cyan) 0%, var(--blue-light) 100%);
     border-radius: 3px 0 0 3px;
   }
   .problem-card p {
     font-size: 15px; line-height: 1.7; color: rgba(255,255,255,0.8);
+    font-family: 'Outfit', sans-serif;
   }
   .problem-card.highlight {
-    background: rgba(255,85,51,0.08);
-    border-color: rgba(255,85,51,0.25);
+    background: linear-gradient(135deg, rgba(255,85,51,0.12) 0%, rgba(255,85,51,0.06) 100%);
+    border-color: rgba(255,85,51,0.35);
   }
+  .problem-card.highlight::before { background: linear-gradient(180deg, var(--orange) 0%, #FFB366 100%); }
   .problem-card.highlight p { color: var(--white); font-weight: 500; }
+  .problem-card:hover {
+    border-color: rgba(26,212,254,0.4);
+    background: linear-gradient(135deg, rgba(26,212,254,0.12) 0%, rgba(26,212,254,0.06) 100%);
+    box-shadow: 0 8px 20px rgba(26,212,254,0.1);
+  }
   .s2-heading {
     font-family: 'Outfit', sans-serif;
     font-size: 58px; font-weight: 800;
@@ -267,20 +278,32 @@
     display: flex; flex-direction: column; gap: 10px;
   }
   .company-card {
-    background: var(--card);
-    border: 1px solid var(--border);
+    background: linear-gradient(135deg, rgba(34,197,94,0.1) 0%, rgba(34,197,94,0.04) 100%);
+    border: 1.5px solid rgba(34,197,94,0.25);
     border-radius: 14px;
-    padding: 16px 20px;
+    padding: 18px 22px;
     display: flex; align-items: center; gap: 16px;
-    transition: border-color 0.3s, background 0.3s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  .company-card:hover { border-color: rgba(21,102,192,0.3); background: rgba(21,102,192,0.05); }
+  .company-card:nth-child(2) { border-color: rgba(147,51,234,0.25); background: linear-gradient(135deg, rgba(147,51,234,0.1) 0%, rgba(147,51,234,0.04) 100%); }
+  .company-card:nth-child(3) { border-color: rgba(6,182,212,0.25); background: linear-gradient(135deg, rgba(6,182,212,0.1) 0%, rgba(6,182,212,0.04) 100%); }
+  .company-card:hover {
+    border-color: rgba(34,197,94,0.45);
+    background: linear-gradient(135deg, rgba(34,197,94,0.15) 0%, rgba(34,197,94,0.08) 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(34,197,94,0.15);
+  }
+  .company-card:nth-child(2):hover { border-color: rgba(147,51,234,0.45); background: linear-gradient(135deg, rgba(147,51,234,0.15) 0%, rgba(147,51,234,0.08) 100%); box-shadow: 0 8px 20px rgba(147,51,234,0.15); }
+  .company-card:nth-child(3):hover { border-color: rgba(6,182,212,0.45); background: linear-gradient(135deg, rgba(6,182,212,0.15) 0%, rgba(6,182,212,0.08) 100%); box-shadow: 0 8px 20px rgba(6,182,212,0.15); }
   .company-logo {
-    width: 48px; height: 48px; border-radius: 10px;
+    width: 52px; height: 52px; border-radius: 12px;
     display: flex; align-items: center; justify-content: center;
-    font-weight: 800; font-size: 13px; flex-shrink: 0;
+    font-weight: 800; font-size: 14px; flex-shrink: 0;
     letter-spacing: -0.02em;
+    background: linear-gradient(135deg, rgba(34,197,94,0.2) 0%, rgba(34,197,94,0.1) 100%);
   }
+  .company-card:nth-child(2) .company-logo { background: linear-gradient(135deg, rgba(147,51,234,0.2) 0%, rgba(147,51,234,0.1) 100%); }
+  .company-card:nth-child(3) .company-logo { background: linear-gradient(135deg, rgba(6,182,212,0.2) 0%, rgba(6,182,212,0.1) 100%); }
   .company-info { flex: 1; }
   .company-name { font-weight: 700; font-size: 13px; margin-bottom: 3px; letter-spacing: 0.02em; }
   .company-stat { font-size: 12px; color: rgba(255,255,255,0.6); line-height: 1.5; }
@@ -391,13 +414,26 @@
     font-size: 13px; color: var(--muted);
     overflow: hidden; position: relative;
   }
+  .isb-img::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(13,27,62,0.1) 0%, rgba(13,27,62,0.5) 100%);
+    pointer-events: none;
+  }
   .isb-img img { width: 100%; height: 100%; object-fit: cover; }
   .isb-img .img-placeholder {
     position: absolute; inset: 0;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     gap: 8px; color: var(--muted); font-size: 12px;
   }
-  .isb-body { padding: 24px; flex: 1; display: flex; flex-direction: column; gap: 12px; }
+  .isb-body {
+    padding: 24px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative; z-index: 1;
+  }
   .isb-title { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 15px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--white); }
   .isb-desc { font-size: 13px; line-height: 1.7; color: rgba(255,255,255,0.65); }
 
@@ -507,19 +543,34 @@
     position: relative; overflow: hidden;
   }
   .option-card.recommended {
-    background: linear-gradient(145deg, rgba(21,102,192,0.2), rgba(21,102,192,0.05));
-    border: 1px solid rgba(21,102,192,0.4);
+    background: linear-gradient(145deg, rgba(21,102,192,0.25), rgba(21,102,192,0.08));
+    border: 2px solid rgba(21,102,192,0.6);
+    box-shadow: 0 0 40px rgba(21,102,192,0.25);
+    transform: translateY(-8px);
+  }
+  .option-card.recommended:hover {
+    border-color: rgba(21,102,192,0.8);
+    box-shadow: 0 0 60px rgba(21,102,192,0.35), inset 0 0 30px rgba(21,102,192,0.1);
+    transform: translateY(-12px);
   }
   .option-card.secondary {
-    background: var(--card);
+    background: linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
     border: 1px solid var(--border);
+  }
+  .option-card.secondary:hover {
+    border-color: rgba(255,255,255,0.15);
+    background: linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
   }
   .option-tag {
     display: inline-flex; align-items: center; gap: 6px;
     font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
     text-transform: uppercase; padding: 5px 12px; border-radius: 100px;
   }
-  .option-tag.rec { background: var(--orange); color: white; }
+  .option-tag.rec {
+    background: linear-gradient(90deg, var(--orange) 0%, #FFB366 100%);
+    color: white;
+    box-shadow: 0 4px 12px rgba(255,85,51,0.3);
+  }
   .option-tag.alt { background: rgba(255,255,255,0.08); color: var(--muted); }
   .option-title {
     font-family: 'Outfit', sans-serif;
