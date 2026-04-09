@@ -110,29 +110,32 @@
   .nav {
     position: fixed; bottom: 36px; right: 36px;
     width: 48px; height: 48px;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     z-index: 100; background: var(--orange);
     border-radius: 50%; padding: 0; border: none; gap: 0;
     transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    cursor: pointer;
+    cursor: pointer; overflow: hidden;
   }
   .nav::before {
-    content: '☰'; color: white; font-size: 22px; font-weight: bold; line-height: 1;
+    content: '☰'; color: white; font-size: 24px; font-weight: bold; 
+    display: flex; align-items: center; justify-content: center;
+    height: 48px; width: 48px;
   }
   .nav:hover {
     width: auto; height: auto; border-radius: 100px;
     padding: 10px 20px; background: rgba(13,27,62,0.85);
     backdrop-filter: blur(12px); border: 1px solid var(--border);
-    gap: 16px; flex-direction: row;
+    gap: 16px; overflow: visible;
   }
   .nav:hover::before {
     content: ''; display: none;
+    height: auto; width: auto;
   }
   .nav-btn {
-    display: none;
+    display: none !important;
   }
   .nav:hover .nav-btn {
-    display: inline-flex; background: none; border: none; cursor: pointer;
+    display: inline-flex !important; background: none; border: none; cursor: pointer;
     color: var(--white); font-family: 'DM Sans', sans-serif;
     font-size: 13px; font-weight: 500; letter-spacing: 0.04em;
     padding: 8px 20px; border-radius: 100px;
@@ -146,10 +149,10 @@
   }
   .nav:hover .nav-btn.primary:hover { background: #ff6b4a; }
   .nav:hover .nav-btn:disabled { opacity: 0.2; cursor: default; background: none; }
-  .dots { display: none; flex-direction: row; gap: 6px; align-items: center; }
-  .nav:hover .dots { display: flex; }
-  .slide-counter { display: none; }
-  .nav:hover .slide-counter { display: inline; }
+  .dots { display: none !important; visibility: hidden; flex-direction: row; gap: 6px; align-items: center; }
+  .nav:hover .dots { display: flex !important; visibility: visible; }
+  .slide-counter { display: none !important; visibility: hidden; }
+  .nav:hover .slide-counter { display: inline !important; visibility: visible; }
 
   .slide-counter {
     font-size: 12px; color: var(--muted); letter-spacing: 0.08em;
