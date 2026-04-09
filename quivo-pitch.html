@@ -108,44 +108,48 @@
 
   /* NAV */
   .nav {
-    position: fixed; bottom: -80px; left: 50%; transform: translateX(-50%);
-    display: flex; align-items: center; gap: 16px; z-index: 100;
-    background: rgba(13,27,62,0.85);
-    backdrop-filter: blur(12px);
-    border: 1px solid var(--border);
-    border-radius: 100px;
-    padding: 10px 20px;
-    transition: bottom 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: fixed; bottom: 36px; right: 36px;
+    width: 48px; height: 48px;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 100; background: var(--orange);
+    border-radius: 50%; padding: 0; border: none; gap: 0;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    cursor: pointer;
   }
   .nav::before {
-    content: '';
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 500px;
-    height: 100px;
-    pointer-events: auto;
-    z-index: 99;
+    content: '≡'; color: white; font-size: 20px; font-weight: bold;
   }
   .nav:hover {
-    bottom: 36px;
+    width: auto; height: auto; border-radius: 100px;
+    padding: 10px 20px; background: rgba(13,27,62,0.85);
+    backdrop-filter: blur(12px); border: 1px solid var(--border);
+    gap: 16px;
+  }
+  .nav:hover::before {
+    content: ''; display: none;
   }
   .nav-btn {
-    background: none; border: none; cursor: pointer;
+    display: none;
+  }
+  .nav:hover .nav-btn {
+    display: inline-flex; background: none; border: none; cursor: pointer;
     color: var(--white); font-family: 'DM Sans', sans-serif;
     font-size: 13px; font-weight: 500; letter-spacing: 0.04em;
     padding: 8px 20px; border-radius: 100px;
     transition: background 0.2s, color 0.2s;
     opacity: 0.6;
   }
-  .nav-btn:hover { opacity: 1; background: rgba(255,255,255,0.08); }
-  .nav-btn.primary {
+  .nav:hover .nav-btn:hover { opacity: 1; background: rgba(255,255,255,0.08); }
+  .nav:hover .nav-btn.primary {
     background: var(--orange); color: white; opacity: 1;
     padding: 8px 24px;
   }
-  .nav-btn.primary:hover { background: #ff6b4a; }
-  .nav-btn:disabled { opacity: 0.2; cursor: default; background: none; }
+  .nav:hover .nav-btn.primary:hover { background: #ff6b4a; }
+  .nav:hover .nav-btn:disabled { opacity: 0.2; cursor: default; background: none; }
+  .dots { display: none; }
+  .nav:hover .dots { display: block; }
+  .slide-counter { display: none; }
+  .nav:hover .slide-counter { display: block; }
 
   .slide-counter {
     font-size: 12px; color: var(--muted); letter-spacing: 0.08em;
