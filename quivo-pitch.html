@@ -181,6 +181,7 @@
     position: absolute;
     top: -200px; right: -200px;
     width: 700px; height: 700px;
+    border-radius: 50%;
     background: radial-gradient(circle, rgba(21,102,192,0.25) 0%, transparent 70%);
     pointer-events: none;
   }
@@ -188,7 +189,8 @@
     content: '';
     position: absolute;
     bottom: -100px; left: -100px;
-    width: 400px; height: 400px;
+    width: 500px; height: 500px;
+    border-radius: 50%;
     background: radial-gradient(circle, rgba(255,85,51,0.35) 0%, rgba(255,85,51,0.1) 70%);
     pointer-events: none;
     box-shadow: 0 0 100px rgba(255,85,51,0.25);
@@ -303,9 +305,9 @@
   }
   .s2-heading {
     font-family: 'Outfit', sans-serif;
-    font-size: 58px; font-weight: 800;
+    font-size: 64px; font-weight: 800;
     line-height: 1.1; letter-spacing: -0.03em;
-    margin-bottom: 28px;
+    margin-bottom: 36px;
   }
   .s2-heading .dim { color: rgba(255,255,255,0.2); }
   .s2-stat {
@@ -321,7 +323,7 @@
   #s3 { background: var(--navy); }
   #s3 .slide-inner { flex-direction: column; }
   .s3-grid {
-    display: grid; grid-template-columns: auto 1fr 1fr;
+    display: grid; grid-template-columns: 180px 1fr 1fr;
     gap: 24px; flex: 1; align-items: start;
   }
   .s3-points {
@@ -381,13 +383,14 @@
   .bpo-bar {
     grid-column: 1;
     grid-row: 2 / 4;
-    background: linear-gradient(135deg, rgba(21,102,192,0.15) 0%, rgba(21,102,192,0.05) 100%);
+    background: linear-gradient(135deg, rgba(21,102,192,0.15) 0%, rgba(21,102,192,0.08) 100%);
     border: 1.5px solid rgba(21,102,192,0.3);
     border-radius: 16px;
-    padding: 24px 20px;
-    display: flex; flex-direction: column; align-items: center; gap: 20px;
+    padding: 28px 22px;
+    display: flex; flex-direction: column; align-items: center; gap: 24px;
     align-self: start;
     margin-top: 0;
+    width: 100%;
   }
   .bpo-stat { text-align: center; }
   .bpo-num {
@@ -492,7 +495,7 @@
     display: flex; align-items: center; justify-content: center;
     font-size: 13px; color: var(--muted);
     overflow: hidden; position: relative;
-    border-radius: 50%;
+    border-radius: 16px;
     margin: 0 auto;
   }
   .isb-img::after {
@@ -704,17 +707,8 @@
   .op-check { color: #4ade80; font-size: 14px; flex-shrink: 0; margin-top: 1px; }
   .op-x { color: rgba(255,255,255,0.3); font-size: 14px; flex-shrink: 0; margin-top: 1px; }
   .option-card.recommended::before {
-    content: '◆ POSITIONED AS EOR';
-    position: absolute; top: 24px; right: 32px;
-    font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--orange);
-    padding: 8px 14px; background: linear-gradient(90deg, rgba(255,85,51,0.15) 0%, rgba(255,85,51,0.08) 100%);
-    border: 1px solid rgba(255,85,51,0.3);
-    border-radius: 100px;
-    z-index: 5;
+    display: none;
   }
-  .option-card.recommended::after {
-    content: ''; }
   .option-card.recommended .option-title::before {
     content: 'By Trusted Pakistani Operator';
     display: block; font-size: 12px; font-weight: 500; color: var(--orange-light);
@@ -784,29 +778,34 @@
   .closing-divider {
     width: 48px; height: 2px; background: var(--orange); border-radius: 2px;
   }
+  .s8-metric-left, .s8-metric-right {
+    display: none;
+  }
   .closing-bullets {
-    display: flex; flex-direction: column; gap: 10px; text-align: left;
+    display: flex; flex-direction: column; gap: 12px; text-align: left;
+    background: linear-gradient(135deg, rgba(34,197,94,0.12) 0%, rgba(34,197,94,0.04) 100%);
+    border: 1.5px solid rgba(34,197,94,0.25);
+    border-radius: 18px; padding: 28px 32px; margin: 24px 0;
   }
   .closing-bullet {
-    display: flex; gap: 12px; align-items: center;
-    font-size: 15px; color: rgba(255,255,255,0.75);
+    display: flex; gap: 14px; align-items: flex-start;
+    font-size: 16px; color: rgba(255,255,255,0.8);
+    font-weight: 500;
   }
   .closing-bullet::before {
-    content: ''; width: 6px; height: 6px; border-radius: 50%;
-    background: var(--orange); flex-shrink: 0;
+    content: '▸'; color: var(--green); font-size: 18px; flex-shrink: 0; margin-top: -2px;
   }
   .closing-presenter {
-    margin-top: 12px;
-    border: 1px solid var(--border);
-    border-radius: 16px; padding: 20px 32px;
-    display: flex; flex-direction: column; gap: 4px;
+    background: linear-gradient(135deg, rgba(42,127,232,0.15) 0%, rgba(42,127,232,0.05) 100%);
+    border: 1.5px solid rgba(42,127,232,0.3); border-radius: 18px; padding: 32px 40px;
+    text-align: center; display: flex; flex-direction: column; gap: 6px;
   }
   .closing-name {
-    font-family: 'Outfit', sans-serif; font-weight: 700;
-    font-size: 20px;
+    font-family: 'Outfit', sans-serif; font-weight: 800;
+    font-size: 22px; letter-spacing: -0.02em;
   }
-  .closing-role { font-size: 14px; color: var(--muted); }
-  .closing-contact { font-size: 13px; color: var(--blue-light); }
+  .closing-role { font-size: 15px; color: rgba(255,255,255,0.7); margin-top: 4px; font-family: 'Outfit', sans-serif; }
+  .closing-contact { font-size: 14px; color: var(--blue-light); margin-top: 8px; font-weight: 600; }
 
   /* ANIMATIONS */
   @keyframes fadeUp {
@@ -1145,14 +1144,6 @@
   <!-- SLIDE 8: CLOSING -->
   <!-- ═══════════════════════════════════════ -->
   <div class="slide" id="s8">
-    <div class="s8-metric-left animate-1">
-      <div class="s8-metric-num">$2.5M</div>
-      <div class="s8-metric-label">Annual Savings</div>
-    </div>
-    <div class="s8-metric-right animate-2">
-      <div class="s8-metric-num">60%</div>
-      <div class="s8-metric-label">Cost Reduction</div>
-    </div>
     <div class="closing-inner">
       <div class="closing-quivo animate-1">QUIVO</div>
       <div class="closing-quote animate-2">"While others react to pressure,<br>we build the next move."</div>
